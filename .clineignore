@@ -1,0 +1,21 @@
+# Flutter build folders
+build/
+**/build/
+
+# Dart / Flutter cache
+.dart_tool/
+.gradle/
+
+# Android / iOS generated files
+android/build/
+ios/build/
+
+# Git folder
+.git/
+
+# Dependencies
+node_modules/
+
+# Optional large folders
+coverage/
+dist/
