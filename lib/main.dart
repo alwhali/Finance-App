@@ -1,8 +1,13 @@
+import 'package:finance_app/models/finance_model.dart';
 import 'package:finance_app/pages/splash.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   // Ensure any async initialization is complete before running the app
+  await Hive.initFlutter();
+  Hive.registerAdapter(FinanceModelAdapter());
+  await Hive.openBox<FinanceModel>('finance_box');
   runApp(const FinanceApp());
 }
 
