@@ -1,4 +1,5 @@
 import 'package:finance_app/models/finance_model.dart';
+import 'package:finance_app/pages/add.dart';
 import 'package:finance_app/pages/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';

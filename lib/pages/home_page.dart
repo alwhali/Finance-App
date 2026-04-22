@@ -1,4 +1,5 @@
 import 'package:finance_app/colors/colors.dart';
+import 'package:finance_app/pages/add.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,7 +33,14 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Expanded(
                     flex: 2,
+
                     child: Container(
+                      decoration: BoxDecoration(
+                        color: blackcColor,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                        ),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(24.0),
                         child: Column(
@@ -56,12 +64,6 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ],
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: blackcColor,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
                         ),
                       ),
                     ),
@@ -90,6 +92,12 @@ class _HomePageState extends State<HomePage> {
                   Expanded(
                     flex: 2,
                     child: Container(
+                      decoration: BoxDecoration(
+                        color: blackcColor,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                        ),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(24.0),
                         child: Column(
@@ -115,12 +123,6 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       ),
-                      decoration: BoxDecoration(
-                        color: blackcColor,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(10),
-                        ),
-                      ),
                     ),
                   ),
                   Expanded(
@@ -139,15 +141,29 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(height: 24),
 
-            SizedBox(
-              height: 50,
-              child: Row(
-                children: [
-                  Expanded(
+            Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AddPage(),
+                        ),
+                      );
+                    },
                     child: Container(
+                      padding: const EdgeInsets.all(16.0),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: secondryGreenColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: Row(
                         children: [
-                          IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+                          Icon(Icons.add),
+                          SizedBox(width: 8),
                           Text(
                             'Plus',
                             style: TextStyle(
@@ -158,39 +174,35 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      decoration: BoxDecoration(
-                        color: secondryGreenColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
                     ),
                   ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: Container(
-                      child: Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.remove),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(16.0),
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: secondryRedColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.remove),
+                        SizedBox(width: 8),
+                        Text(
+                          'Minus',
+                          style: TextStyle(
+                            color: blackcColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
                           ),
-                          Text(
-                            'Minus',
-                            style: TextStyle(
-                              color: blackcColor,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                      decoration: BoxDecoration(
-                        color: secondryRedColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             SizedBox(height: 24),
 
@@ -218,147 +230,46 @@ class _HomePageState extends State<HomePage> {
 
             Expanded(
               child: ListView(
-                children: [
-                  ListTile(
-                    leading: CircleAvatar(backgroundColor: secondryBlueColor),
-                    title: Text(
-                      'Amazon',
-                      style: TextStyle(
-                        color: blackcColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    subtitle: Text(
-                      '20 Jan 2024',
-                      style: TextStyle(color: blackcColor, fontSize: 14),
-                    ),
-                    trailing: Text(
-                      '-\$50',
-                      style: TextStyle(color: blackcColor, fontSize: 14),
-                    ),
-                  ),
-                  ListTile(
-                    leading: CircleAvatar(backgroundColor: secondryBlueColor),
-                    title: Text(
-                      'Amazon',
-                      style: TextStyle(
-                        color: blackcColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    subtitle: Text(
-                      '20 Jan 2024',
-                      style: TextStyle(color: blackcColor, fontSize: 14),
-                    ),
-                    trailing: Text(
-                      '-\$50',
-                      style: TextStyle(color: blackcColor, fontSize: 14),
-                    ),
-                  ),
-                  ListTile(
-                    leading: CircleAvatar(backgroundColor: secondryBlueColor),
-                    title: Text(
-                      'Amazon',
-                      style: TextStyle(
-                        color: blackcColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    subtitle: Text(
-                      '20 Jan 2024',
-                      style: TextStyle(color: blackcColor, fontSize: 14),
-                    ),
-                    trailing: Text(
-                      '-\$50',
-                      style: TextStyle(color: blackcColor, fontSize: 14),
-                    ),
-                  ),
-                  ListTile(
-                    leading: CircleAvatar(backgroundColor: secondryBlueColor),
-                    title: Text(
-                      'Amazon',
-                      style: TextStyle(
-                        color: blackcColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    subtitle: Text(
-                      '20 Jan 2024',
-                      style: TextStyle(color: blackcColor, fontSize: 14),
-                    ),
-                    trailing: Text(
-                      '-\$50',
-                      style: TextStyle(color: blackcColor, fontSize: 14),
-                    ),
-                  ),
-                  ListTile(
-                    leading: CircleAvatar(backgroundColor: secondryBlueColor),
-                    title: Text(
-                      'Amazon',
-                      style: TextStyle(
-                        color: blackcColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    subtitle: Text(
-                      '20 Jan 2024',
-                      style: TextStyle(color: blackcColor, fontSize: 14),
-                    ),
-                    trailing: Text(
-                      '-\$50',
-                      style: TextStyle(color: blackcColor, fontSize: 14),
-                    ),
-                  ),
-                  ListTile(
-                    leading: CircleAvatar(backgroundColor: secondryBlueColor),
-                    title: Text(
-                      'Amazon',
-                      style: TextStyle(
-                        color: blackcColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    subtitle: Text(
-                      '20 Jan 2024',
-                      style: TextStyle(color: blackcColor, fontSize: 14),
-                    ),
-                    trailing: Text(
-                      '-\$50',
-                      style: TextStyle(color: blackcColor, fontSize: 14),
-                    ),
-                  ),
-                  ListTile(
-                    leading: CircleAvatar(backgroundColor: secondryBlueColor),
-                    title: Text(
-                      'Amazon',
-                      style: TextStyle(
-                        color: blackcColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    subtitle: Text(
-                      '20 Jan 2024',
-                      style: TextStyle(color: blackcColor, fontSize: 14),
-                    ),
-                    trailing: Text(
-                      '-\$50',
-                      style: TextStyle(color: blackcColor, fontSize: 14),
-                    ),
-                  ),
-                ],
                 shrinkWrap: true,
                 // physics: NeverScrollableScrollPhysics(),
+                children: [
+                  ListTileOfElement(),
+                  ListTileOfElement(),
+                  ListTileOfElement(),
+                  ListTileOfElement(),
+                  ListTileOfElement(),
+                ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ListTileOfElement extends StatelessWidget {
+  const ListTileOfElement({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: CircleAvatar(backgroundColor: secondryBlueColor),
+      title: Text(
+        'Amazon',
+        style: TextStyle(
+          color: blackcColor,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      subtitle: Text(
+        '20 Jan 2024',
+        style: TextStyle(color: blackcColor, fontSize: 14),
+      ),
+      trailing: Text(
+        '-\$50',
+        style: TextStyle(color: blackcColor, fontSize: 14),
       ),
     );
   }

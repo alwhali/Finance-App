@@ -8,5 +8,5 @@ Color primaryBlueColor = Color(0xFF2962FF);
 Color primaryRedColor = Color(0xFFD50000);
 Color secondrypurbleColor = Color(0xFFBB86FC);
 Color secondryGreenColor = Color(0xFF69F0AE);
-Color secondryBlueColor = Color(0xFF448AFF);
+Color secondryBlueColor = Color.fromARGB(255, 139, 183, 238);
 Color secondryRedColor = Color.fromARGB(255, 220, 139, 155);
