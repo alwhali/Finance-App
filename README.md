@@ -19,3 +19,4 @@ samples, guidance on mobile development, and a full API reference.
 ## Documentation
 
 - [Hive Setup Guide](docs/hive_setup.md)
+- [state managment](docs/state_managment.md)
