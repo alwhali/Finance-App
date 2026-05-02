@@ -164,7 +164,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const AddPage(),
+                                  builder: (context) => AddPage(),
                                 ),
                               );
                             },
@@ -276,7 +276,101 @@ class _HomePageState extends State<HomePage> {
                                 context,
                               ).financeDataList.reversed.toList();
 
-                          return ListTileOfElement(financeModel: mylist[index]);
+                          return Dismissible(
+                            background: Container(
+                              color: secondryGreenColor,
+                              // alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.only(left: 20),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.edit, color: Colors.white),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    'Edit',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            secondaryBackground: Container(
+                              color: secondryRedColor,
+                              // alignment: Alignment.centerRight,
+                              padding: EdgeInsets.only(right: 20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    'Delete',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(width: 8),
+                                  Icon(Icons.delete, color: Colors.white),
+                                ],
+                              ),
+                            ),
+                            key: UniqueKey(),
+
+                            confirmDismiss: (direction) async {
+                              if (direction == DismissDirection.endToStart) {
+                                return await showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text('Confirm Delete'),
+                                    content: const Text(
+                                      'Are you sure you want to delete this item?',
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(false),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(true),
+                                        child: const Text(
+                                          'Delete',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return true;
+                            },
+
+                            onDismissed: (direction) {
+                              if (direction == DismissDirection.startToEnd) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddPage(
+                                      financeModel: mylist[index],
+                                      isMinus: mylist[index].financeValue < 0,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                mylist[index].delete();
+                                BlocProvider.of<FetchDataCubit>(
+                                  context,
+                                ).fetchData();
+                              }
+                            },
+
+                            child: ListTileOfElement(
+                              financeModel: mylist[index],
+                            ),
+                          );
                         },
                       ),
                     ),

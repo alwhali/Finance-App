@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddPage extends StatefulWidget {
+  FinanceModel? financeModel;
   final bool isMinus; // New parameter to determine if it's for minus operations
 
-  const AddPage({super.key, this.isMinus = false});
+  AddPage({super.key, this.financeModel, this.isMinus = false});
 
   @override
   State<AddPage> createState() => _AddPageState();
@@ -20,8 +21,13 @@ class _AddPageState extends State<AddPage> {
 
   @override
   void initState() {
+    BlocProvider.of<FetchDataCubit>(context).fetchData();
     super.initState();
     detailsController = TextEditingController();
+    if (widget.financeModel != null) {
+      detailsController.text = widget.financeModel!.details;
+      number = widget.financeModel!.financeValue.abs().toString();
+    }
   }
 
   @override
@@ -202,10 +208,9 @@ class _AddPageState extends State<AddPage> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
-                          if (number.isNotEmpty &&
-                              detailsController.text.isNotEmpty) {
-                            try {
-                              // ✅ Now context is inside BlocProvider
+                          try {
+                            if (widget.financeModel == null) {
+                              //add new finance model
                               BlocProvider.of<AddDataCubit>(context).addData(
                                 FinanceModel(
                                   details: detailsController.text,
@@ -220,9 +225,24 @@ class _AddPageState extends State<AddPage> {
                               ).fetchData();
 
                               Navigator.pop(context);
-                            } on Exception catch (e) {
-                              // TODO: Show error message
+                            } else {
+                              // Update existing finance model
+                              widget.financeModel!.details =
+                                  detailsController.text;
+                              widget.financeModel!.financeValue = widget.isMinus
+                                  ? double.parse(number) * -1
+                                  : double.parse(number);
+                              widget.financeModel!.dateTime = DateTime.now();
+                              widget.financeModel!.save();
+
+                              BlocProvider.of<FetchDataCubit>(
+                                context,
+                              ).fetchData();
+
+                              Navigator.pop(context);
                             }
+                          } on Exception catch (e) {
+                            // TODO: Show error message
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -235,7 +255,8 @@ class _AddPageState extends State<AddPage> {
                           elevation: 4,
                         ),
                         child: Text(
-                          'DONE',
+                          widget.financeModel == null ? 'ADD' : 'UPDATE',
+
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -248,6 +269,7 @@ class _AddPageState extends State<AddPage> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
+                          BlocProvider.of<FetchDataCubit>(context).fetchData();
                           Navigator.pop(context);
                         },
                         style: ElevatedButton.styleFrom(

@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'finance_model.g.dart';
 
 @HiveType(typeId: 0)
-class FinanceModel {
+class FinanceModel extends HiveObject {
   @HiveField(0)
   String details;
 
