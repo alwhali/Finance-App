@@ -42,6 +42,7 @@ class _AddPageState extends State<AddPage> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text(widget.isMinus ? 'Minus' : 'Plus'),
+        actions: [],
         centerTitle: true,
       ),
       body: BlocProvider(
@@ -53,6 +54,7 @@ class _AddPageState extends State<AddPage> {
               children: [
                 Container(
                   padding: const EdgeInsets.all(16.0),
+
                   decoration: BoxDecoration(
                     color: primaryPurbleColor,
                     borderRadius: BorderRadius.circular(10),
@@ -232,12 +234,20 @@ class _AddPageState extends State<AddPage> {
                               widget.financeModel!.financeValue = widget.isMinus
                                   ? double.parse(number) * -1
                                   : double.parse(number);
-                              widget.financeModel!.dateTime = DateTime.now();
+                              // widget.financeModel!.dateTime = DateTime.now();
                               widget.financeModel!.save();
 
                               BlocProvider.of<FetchDataCubit>(
                                 context,
                               ).fetchData();
+
+                              // widget.financeModel != null
+                              //     ? BlocProvider.of<FetchDataCubit>(
+                              //         context,
+                              //       ).fetchDateDate(
+                              //         widget.financeModel!.dateTime,
+                              //       )
+                              //     : null;
 
                               Navigator.pop(context);
                             }

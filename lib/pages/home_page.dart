@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
+    print('THIS IS INIT STATE FFROM HOME PAGE');
     // TODO: implement initState
     super.initState();
     BlocProvider.of<FetchDataCubit>(context).fetchData();
@@ -24,6 +25,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final blocProviderFetchDAta = BlocProvider.of<FetchDataCubit>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Welcome Ahmed"),
@@ -59,7 +62,8 @@ class _HomePageState extends State<HomePage> {
                               child: Padding(
                                 padding: const EdgeInsets.all(24.0),
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
@@ -71,7 +75,8 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     Text(
-                                      '452',
+                                      blocProviderFetchDAta.sumTotalBalance
+                                          .toString(),
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 24,
@@ -116,11 +121,12 @@ class _HomePageState extends State<HomePage> {
                               child: Padding(
                                 padding: const EdgeInsets.all(24.0),
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "My Balance",
+                                      "Today's Balance",
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
@@ -128,7 +134,8 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     Text(
-                                      '452',
+                                      blocProviderFetchDAta.sumToDayBalance
+                                          .toString(),
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 24,
@@ -156,81 +163,85 @@ class _HomePageState extends State<HomePage> {
                     ),
                     SizedBox(height: 24),
 
-                    Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AddPage(),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(16.0),
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: secondryGreenColor,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.add),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    'Plus',
-                                    style: TextStyle(
-                                      color: blackcColor,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                    SizedBox(
+                      height: 50,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddPage(),
                                   ),
-                                ],
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(16.0),
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: secondryGreenColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.add),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      'Plus',
+                                      style: TextStyle(
+                                        color: blackcColor,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: 16),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AddPage(isMinus: true),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(16.0),
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: secondryRedColor,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.remove),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    'Minus',
-                                    style: TextStyle(
-                                      color: blackcColor,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        AddPage(isMinus: true),
                                   ),
-                                ],
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(16.0),
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: secondryRedColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.remove),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      'Minus',
+                                      style: TextStyle(
+                                        color: blackcColor,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 24),
 
+                    SizedBox(height: 24),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -262,19 +273,20 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-
+                    SizedBox(height: 12),
                     Expanded(
                       child: ListView.builder(
-                        shrinkWrap: true,
+                        // shrinkWrap: true,
                         // physics: NeverScrollableScrollPhysics(),
-                        itemCount: BlocProvider.of<FetchDataCubit>(
-                          context,
-                        ).financeDataList.length,
+                        // addAutomaticKeepAlives: true,
+                        itemCount: blocProviderFetchDAta
+                            .fetchDateDate(DateTime.now())
+                            .length,
                         itemBuilder: (context, index) {
-                          List<FinanceModel> mylist =
-                              BlocProvider.of<FetchDataCubit>(
-                                context,
-                              ).financeDataList.reversed.toList();
+                          List<FinanceModel> mylist = blocProviderFetchDAta
+                              .fetchDateDate(DateTime.now())
+                              .reversed
+                              .toList();
 
                           return Dismissible(
                             background: Container(
@@ -388,26 +400,29 @@ class ListTileOfElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(backgroundColor: secondryBlueColor),
-      title: Text(
-        financeModel.details,
-        style: TextStyle(
-          color: blackcColor,
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: ListTile(
+        leading: CircleAvatar(backgroundColor: secondryBlueColor),
+        title: Text(
+          financeModel.details,
+          style: TextStyle(
+            color: blackcColor,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
         ),
-      ),
-      subtitle: Text(
-        DateFormat.MMMMEEEEd().format(financeModel.dateTime),
+        subtitle: Text(
+          DateFormat.MMMMEEEEd().format(financeModel.dateTime),
 
-        style: TextStyle(color: blackcColor, fontSize: 14),
-      ),
-      trailing: Text(
-        financeModel.financeValue > 0
-            ? "\$ +${financeModel.financeValue.toString()}"
-            : "\$ ${financeModel.financeValue.toString()}",
-        style: TextStyle(color: blackcColor, fontSize: 14),
+          style: TextStyle(color: blackcColor, fontSize: 14),
+        ),
+        trailing: Text(
+          financeModel.financeValue > 0
+              ? "\$ +${financeModel.financeValue.toString()}"
+              : "\$ ${financeModel.financeValue.toString()}",
+          style: TextStyle(color: blackcColor, fontSize: 14),
+        ),
       ),
     );
   }
