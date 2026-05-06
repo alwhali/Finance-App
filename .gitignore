@@ -47,3 +47,4 @@ app.*.map.json
 
 # Continue
 /.continue
+.continue/agents/new-config.yaml

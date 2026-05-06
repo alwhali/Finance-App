@@ -21,7 +21,6 @@ models:
   - name: "inclusionAI: Ling-2.6-1T (free)"
     provider: openrouter
     model: inclusionai/ling-2.6-1t:free
-    apiKey: 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
     roles:
     - apply
     - chat
@@ -29,6 +28,6 @@ models:
     - autocomplete
 
 # MCP Servers that Continue can access
-# https://docs.continue.dev/customization/mcp-tools
+# https://docs.continue.dev/customization/mcp-tools 
 mcpServers:
   - uses: anthropic/memory-mcp
