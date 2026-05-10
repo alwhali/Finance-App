@@ -12,6 +12,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(FinanceModelAdapter());
   await Hive.openBox<FinanceModel>('finance_box');
+  await Hive.openBox('darkModeBox');
   runApp(const FinanceApp());
 }
 
@@ -44,15 +45,23 @@ class FinanceApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => FetchDataCubit(),
 
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: "Flutter Finance App",
+      child: ValueListenableBuilder(
+        valueListenable: Hive.box('darkModeBox').listenable(),
+        builder: (context, box, widget) {
+          var darkMode = box.get('darkMode', defaultValue: false);
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: "Flutter Finance App",
+            darkTheme: ThemeData.dark(useMaterial3: false),
 
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: const SplashScreen(),
+            themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
+            theme: ThemeData(
+              // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              useMaterial3: true,
+            ),
+            home: const SplashScreen(),
+          );
+        },
       ),
     );
   }

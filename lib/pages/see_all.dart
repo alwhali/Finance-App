@@ -177,20 +177,26 @@ class ListTileOfElement extends StatelessWidget {
         title: Text(
           financeModel.details,
           style: TextStyle(
-            color: blackcColor,
+            // color: blackcColor,
             fontSize: 16,
             fontWeight: FontWeight.w500,
           ),
         ),
         subtitle: Text(
           DateFormat.MMMMEEEEd().format(financeModel.dateTime),
-          style: TextStyle(color: blackcColor, fontSize: 14),
+          style: TextStyle(
+            // color: blackcColor,
+            fontSize: 14,
+          ),
         ),
         trailing: Text(
           financeModel.financeValue > 0
               ? "\$ +${financeModel.financeValue.toString()}"
               : "\$ ${financeModel.financeValue.toString()}",
-          style: TextStyle(color: blackcColor, fontSize: 14),
+          style: TextStyle(
+            // color: blackcColor,
+            fontSize: 14,
+          ),
         ),
       ),
     );
