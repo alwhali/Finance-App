@@ -4,11 +4,14 @@ import 'package:finance_app/models/finance_model.dart';
 
 import 'package:finance_app/pages/splash.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   // Ensure any async initialization is complete before running the app
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await Hive.initFlutter();
   Hive.registerAdapter(FinanceModelAdapter());
   await Hive.openBox<FinanceModel>('finance_box');
@@ -52,9 +55,9 @@ class FinanceApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: "Flutter Finance App",
+            themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
             darkTheme: ThemeData.dark(useMaterial3: false),
 
-            themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
             theme: ThemeData(
               // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,

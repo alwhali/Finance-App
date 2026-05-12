@@ -7,17 +7,18 @@ part 'fetch_data_state.dart';
 
 class FetchDataCubit extends Cubit<FetchDataState> {
   FetchDataCubit() : super(FetchDataInitial());
+  List<FinanceModel> financeDataList = [];
+  List<FinanceModel> financeDataDateList = [];
+  List<FinanceModel> todayFinanceDataList = [];
 
   double sumTotalBalance = 0;
   double sumToDayBalance = 0;
   fetchData() {
-    List<FinanceModel> financeDataList = [];
-    List<FinanceModel> todayFinanceDataList = [];
-
     try {
       emit(FetchDataLoading());
       financeDataList = Hive.box<FinanceModel>('finance_box').values.toList();
       todayFinanceDataList = fetchDateDate(DateTime.now());
+      fetchDateDate(DateTime.now());
       sumTotalBalance = 0;
       for (var element in financeDataList) {
         sumTotalBalance += element.financeValue;
@@ -34,8 +35,6 @@ class FetchDataCubit extends Cubit<FetchDataState> {
   }
 
   fetchDateDate(DateTime date) {
-    List<FinanceModel> financeDataDateList = [];
-
     financeDataDateList = Hive.box<FinanceModel>(
       'finance_box',
     ).values.where((element) => element.dateTime.day == date.day).toList();

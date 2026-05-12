@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:finance_app/colors/colors.dart';
+import 'package:finance_app/cubit/add_cubit/add_data_cubit_cubit.dart';
 import 'package:finance_app/cubit/fetch_cubit/fetch_data_cubit.dart';
 import 'package:finance_app/models/finance_model.dart';
 import 'package:finance_app/pages/add.dart';
 import 'package:finance_app/pages/see_all.dart';
+import 'package:finance_app/pages/splash.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
@@ -45,6 +50,123 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ],
+          ),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                DrawerHeader(
+                  decoration: BoxDecoration(color: secondryGreenColor),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: 40,
+                        child: Text(
+                          "A",
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      Text(
+                        "Ahmed Alwhali",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ListTile(
+                  leading: dartTheme
+                      ? Icon(Icons.dark_mode)
+                      : Icon(Icons.light_mode),
+                  trailing: Switch(
+                    value: dartTheme,
+                    onChanged: (value) {
+                      box.put('darkMode', value);
+                    },
+                  ),
+                  title: Text("Dark Mode"),
+                  onTap: () {
+                    box.put('darkMode', !dartTheme);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.home),
+                  trailing: Icon(Icons.arrow_right),
+                  title: Text("Home"),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.add),
+                  trailing: Icon(Icons.arrow_right),
+                  title: Text("Add"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AddPage()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.add),
+                  trailing: Icon(Icons.arrow_right),
+                  title: Text("Minus"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddPage(isMinus: true),
+                      ),
+                    );
+                  },
+                ),
+
+                ListTile(
+                  leading: Icon(Icons.list),
+                  trailing: Icon(Icons.arrow_right),
+                  title: Text("See All"),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SeeAll()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  trailing: Icon(Icons.arrow_right),
+                  title: Text("Settings"),
+                  onTap: () {
+                    // Navigator.pop(context);
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => Settings()),
+                    // );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.exit_to_app),
+
+                  title: Text("Exit"),
+                  onTap: () {
+                    // SystemNavigator.pop();
+                    exit(0);
+                  },
+                ),
+              ],
+            ),
           ),
           body: BlocBuilder<FetchDataCubit, FetchDataState>(
             builder: (context, state) => Padding(
@@ -306,7 +428,7 @@ class _HomePageState extends State<HomePage> {
                                 .length,
                             itemBuilder: (context, index) {
                               List<FinanceModel> mylist = blocProviderFetchDAta
-                                  .fetchDateDate(DateTime.now())
+                                  .todayFinanceDataList
                                   .reversed
                                   .toList();
 
